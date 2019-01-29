@@ -108,6 +108,37 @@ public class PlayerVSAIGameScript : MonoBehaviour
 		dice5_Roll_Animation.SetActive (false);
 		dice6_Roll_Animation.SetActive (false);
 	}
+	void DisablingBluePlayersRaycast()
+	{
+		BluePlayerI_Button.GetComponent<Image> ().raycastTarget = false;
+		BluePlayerII_Button.GetComponent<Image> ().raycastTarget = false;
+		BluePlayerIII_Button.GetComponent<Image> ().raycastTarget = false;
+		BluePlayerIV_Button.GetComponent<Image> ().raycastTarget = false;
+	}
+
+	void EnablingBluePlayersRaycast()
+	{
+		BluePlayerI_Button.GetComponent<Image> ().raycastTarget = true;
+		BluePlayerII_Button.GetComponent<Image> ().raycastTarget = true;
+		BluePlayerIII_Button.GetComponent<Image> ().raycastTarget = true;
+		BluePlayerIV_Button.GetComponent<Image> ().raycastTarget = true;
+	}
+
+	void DisablingGreenPlayerRaycast()
+	{
+		GreenPlayerI_Button.GetComponent<Image> ().raycastTarget = false;
+		GreenPlayerII_Button.GetComponent<Image> ().raycastTarget = false;
+		GreenPlayerIII_Button.GetComponent<Image> ().raycastTarget = false;
+		GreenPlayerIV_Button.GetComponent<Image> ().raycastTarget = false;
+	}
+
+	void EnablingGreenPlayerRaycast()
+	{
+		GreenPlayerI_Button.GetComponent<Image> ().raycastTarget = true;
+		GreenPlayerII_Button.GetComponent<Image> ().raycastTarget = true;
+		GreenPlayerIII_Button.GetComponent<Image> ().raycastTarget = true;
+		GreenPlayerIV_Button.GetComponent<Image> ().raycastTarget = true;
+	}
 
 	void InitializeDice()
 	{
@@ -221,13 +252,17 @@ public class PlayerVSAIGameScript : MonoBehaviour
 
 		if (playerTurn == "BLUE") 
 		{
-				diceRoll.position = BlueDiceRollPosition.position;
-				BlueFrame.SetActive (true);
-				GreenFrame.SetActive (false);
+			diceRoll.position = BlueDiceRollPosition.position;
+			EnablingBluePlayersRaycast ();
+			DisablingGreenPlayerRaycast ();
+			BlueFrame.SetActive (true);
+			GreenFrame.SetActive (false);
 		}
 		if (playerTurn == "GREEN") 
 		{
 			diceRoll.position = GreenDiceRollPosition.position;
+			EnablingGreenPlayerRaycast ();
+			DisablingBluePlayersRaycast ();
 			BlueFrame.SetActive (false);
 			GreenFrame.SetActive (true);
 			StartCoroutine (AIMoveTurn ());
@@ -374,6 +409,10 @@ public class PlayerVSAIGameScript : MonoBehaviour
 		}
 		StartCoroutine (PlayersNotInitialized ());
 	}
+
+
+
+
 	IEnumerator PlayersNotInitialized()
 	{
 		yield return new WaitForSeconds (.8f);
@@ -387,6 +426,7 @@ public class PlayerVSAIGameScript : MonoBehaviour
 			{
 				BluePlayerI_Border.SetActive (true);
 				BluePlayerI_Button.interactable = true;
+
 			} 
 			else 
 			{
@@ -396,6 +436,7 @@ public class PlayerVSAIGameScript : MonoBehaviour
 			if ((blueMovemenBlock.Count - BluePlayer_Steps [1]) >= selectDiceNumAnimation && BluePlayer_Steps [1] > 0 && (blueMovemenBlock.Count > BluePlayer_Steps [1])) {
 				BluePlayerII_Border.SetActive (true);
 				BluePlayerII_Button.interactable = true;
+
 			} 
 			else 
 			{
@@ -405,6 +446,7 @@ public class PlayerVSAIGameScript : MonoBehaviour
 			if ((blueMovemenBlock.Count - BluePlayer_Steps [2]) >= selectDiceNumAnimation && BluePlayer_Steps [2] > 0 && (blueMovemenBlock.Count > BluePlayer_Steps [2])) {
 				BluePlayerIII_Border.SetActive (true);
 				BluePlayerIII_Button.interactable = true;
+
 			} 
 			else 
 			{
@@ -414,6 +456,7 @@ public class PlayerVSAIGameScript : MonoBehaviour
 			if ((blueMovemenBlock.Count - BluePlayer_Steps [3]) >= selectDiceNumAnimation && BluePlayer_Steps [3] > 0 && (blueMovemenBlock.Count > BluePlayer_Steps [3])) {
 				BluePlayerIV_Border.SetActive (true);
 				BluePlayerIV_Button.interactable = true;
+
 			} 
 			else 
 			{
