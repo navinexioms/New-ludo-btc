@@ -14,6 +14,8 @@ public class PlayerVSAIGameScript : MonoBehaviour
 	public GameObject BluePlayerI_Border,BluePlayerII_Border,BluePlayerIII_Border,BluePlayerIV_Border;
 	public GameObject GreenPlayerI_Border,GreenPlayerII_Border,GreenPlayerIII_Border,GreenPlayerIV_Border;
 
+	public Sprite[] DiceSprite=new Sprite[7];
+
 	public Vector3[] BluePlayers_Pos;
 	public Vector3[] GreenPlayers_Pos;
 
@@ -47,22 +49,12 @@ public class PlayerVSAIGameScript : MonoBehaviour
 	//----------------Selection of dice number Animation------------------
 	private int selectDiceNumAnimation;
 
-	//----------------Dice Animation------------------
-	public GameObject dice1_Roll_Animation;
-	public GameObject dice2_Roll_Animation;
-	public GameObject dice3_Roll_Animation;
-	public GameObject dice4_Roll_Animation;
-	public GameObject dice5_Roll_Animation;
-	public GameObject dice6_Roll_Animation;
-
 	//Players movement corresponding to blocks
 	public List<GameObject> blueMovemenBlock=new List<GameObject>();
 	public List<GameObject> greenMovementBlock=new List<GameObject>();
 
 	public List<GameObject> BluePlayers=new List<GameObject>();
 	public List<GameObject> GreenPlayers=new List<GameObject>();
-
-	public BluePlayerI_Script[] bluePlayer;
 
 	private System.Random randomNo;
 	public GameObject confirmScreen;
@@ -99,15 +91,6 @@ public class PlayerVSAIGameScript : MonoBehaviour
 		GreenPlayerIV_Button.interactable = false;	
 	}
 
-	void DisablingButtonAnimation()
-	{
-		dice1_Roll_Animation.SetActive (false);
-		dice2_Roll_Animation.SetActive (false);
-		dice3_Roll_Animation.SetActive (false);
-		dice4_Roll_Animation.SetActive (false);
-		dice5_Roll_Animation.SetActive (false);
-		dice6_Roll_Animation.SetActive (false);
-	}
 	void DisablingBluePlayersRaycast()
 	{
 		BluePlayerI_Button.GetComponent<Image> ().raycastTarget = false;
@@ -142,11 +125,10 @@ public class PlayerVSAIGameScript : MonoBehaviour
 
 	void InitializeDice()
 	{
-		print ("Dice interactable becomes true");
+//		print ("Dice interactable becomes true");
 		print ("Dice interactable becomes true");
 		DiceRollButton.interactable = true;
-
-		DisablingButtonAnimation ();
+		DiceRollButton.GetComponent<Button> ().enabled = true;
 
 		//==============CHECKING WHO PLAYER WINS SURING===========//
 		if (totalBlueInHouse > 3) 
@@ -253,6 +235,7 @@ public class PlayerVSAIGameScript : MonoBehaviour
 		if (playerTurn == "BLUE") 
 		{
 			diceRoll.position = BlueDiceRollPosition.position;
+			DiceRollButton.GetComponent<Image> ().sprite = DiceSprite [6];
 			EnablingBluePlayersRaycast ();
 			DisablingGreenPlayerRaycast ();
 			BlueFrame.SetActive (true);
@@ -261,6 +244,7 @@ public class PlayerVSAIGameScript : MonoBehaviour
 		if (playerTurn == "GREEN") 
 		{
 			diceRoll.position = GreenDiceRollPosition.position;
+			DiceRollButton.GetComponent<Image> ().sprite = DiceSprite [6];
 			EnablingGreenPlayerRaycast ();
 			DisablingBluePlayersRaycast ();
 			BlueFrame.SetActive (false);
@@ -285,17 +269,18 @@ public class PlayerVSAIGameScript : MonoBehaviour
 		int num = Random.Range (1, 5);
 		print ("num:" + num);
 		if (num == 1) {
-			FirstPattern ();
+			StartCoroutine (FirstPattern());
 		} else if (num == 2) {
-			SecondPattern ();
+			StartCoroutine (SecondPattern());
 		} else if (num == 3) {
-			ThirdPattern ();
+			StartCoroutine (ThirdPattern());
 		} else if (num == 4) {
-			FourthPattern ();
+			StartCoroutine  (FourthPattern());
 		}
 	}
-	void FirstPattern()
+	IEnumerator FirstPattern()
 	{
+		yield return new WaitForSeconds (.5f);
 		if (GreenPlayerI_Border.activeInHierarchy) {
 			GreenPlayerI_UI ();
 		} else if (GreenPlayerII_Border.activeInHierarchy) {
@@ -306,8 +291,9 @@ public class PlayerVSAIGameScript : MonoBehaviour
 			GreenPlayerIV_UI ();
 		}
 	}
-	void SecondPattern()
+	IEnumerator SecondPattern()
 	{
+		yield return new WaitForSeconds (.5f);
 		if (GreenPlayerII_Border.activeInHierarchy) {
 			GreenPlayerII_UI ();
 		} else if ( GreenPlayerIII_Border.activeInHierarchy) {
@@ -318,8 +304,9 @@ public class PlayerVSAIGameScript : MonoBehaviour
 			GreenPlayerIV_UI ();
 		}
 	}
-	void ThirdPattern()
+	IEnumerator ThirdPattern()
 	{
+		yield return new WaitForSeconds (.5f);
 		if (GreenPlayerIII_Border.activeInHierarchy) {
 			GreenPlayerIII_UI ();
 		} else if ( GreenPlayerII_Border.activeInHierarchy) {
@@ -330,8 +317,9 @@ public class PlayerVSAIGameScript : MonoBehaviour
 			GreenPlayerIV_UI ();
 		}
 	}
-	void FourthPattern()
+	IEnumerator FourthPattern()
 	{
+		yield return new WaitForSeconds (.5f);
 		if (GreenPlayerIV_Border.activeInHierarchy) {
 			GreenPlayerIV_UI ();
 		} else if ( GreenPlayerII_Border.activeInHierarchy) {
@@ -345,68 +333,20 @@ public class PlayerVSAIGameScript : MonoBehaviour
 	public void DiceRoll()
 	{
 		DiceRollButton.interactable = false;
-//		print ("DiceRollButton interactable:" + DiceRollButton.interactable);
-		selectDiceNumAnimation = randomNo.Next (1, 7);
-		if (playerTurn == "GREEN") {
-			print ("selectDiceNumAnimation:" + selectDiceNumAnimation);
-		}
-		switch (selectDiceNumAnimation) 
+		DiceRollButton.GetComponent<Button> ().enabled = false;
+		StartCoroutine (DiceToss ());
+	}
+
+	IEnumerator DiceToss()
+	{
+		int randomDice = 0;
+		for (int i = 0; i < 8;i++) 
 		{
-		//when got one plays one animation
-		case 1:
-			dice1_Roll_Animation.SetActive (true);
-			dice2_Roll_Animation.SetActive (false);
-			dice3_Roll_Animation.SetActive (false);
-			dice4_Roll_Animation.SetActive (false);
-			dice5_Roll_Animation.SetActive (false);
-			dice6_Roll_Animation.SetActive (false);
-			break;
-			// when got two plays two animation
-		case 2:
-			dice1_Roll_Animation.SetActive (false);
-			dice2_Roll_Animation.SetActive (true);
-			dice3_Roll_Animation.SetActive (false);
-			dice4_Roll_Animation.SetActive (false);
-			dice5_Roll_Animation.SetActive (false);
-			dice6_Roll_Animation.SetActive (false);
-			break;
-			// when got three plays two animation
-		case 3:
-			dice1_Roll_Animation.SetActive (false);
-			dice2_Roll_Animation.SetActive (false);
-			dice3_Roll_Animation.SetActive (true);
-			dice4_Roll_Animation.SetActive (false);
-			dice5_Roll_Animation.SetActive (false);
-			dice6_Roll_Animation.SetActive (false);
-			break;
-			// when got four plays two animation
-		case 4:
-			dice1_Roll_Animation.SetActive (false);
-			dice2_Roll_Animation.SetActive (false);
-			dice3_Roll_Animation.SetActive (false);
-			dice4_Roll_Animation.SetActive (true);
-			dice5_Roll_Animation.SetActive (false);
-			dice6_Roll_Animation.SetActive (false);
-			break;
-			// when got five plays two animation
-		case 5:
-			dice1_Roll_Animation.SetActive (false);
-			dice2_Roll_Animation.SetActive (false);
-			dice3_Roll_Animation.SetActive (false);
-			dice4_Roll_Animation.SetActive (false);
-			dice5_Roll_Animation.SetActive (true);
-			dice6_Roll_Animation.SetActive (false);
-			break;
-			// when got six plays two animation
-		case 6:
-			dice1_Roll_Animation.SetActive (false);
-			dice2_Roll_Animation.SetActive (false);
-			dice3_Roll_Animation.SetActive (false);
-			dice4_Roll_Animation.SetActive (false);
-			dice5_Roll_Animation.SetActive (false);
-			dice6_Roll_Animation.SetActive (true);
-			break;
+			randomDice = Random.Range (0, 6);
+			DiceRollButton.GetComponent<Image> ().sprite = DiceSprite [randomDice];
+			yield return new WaitForSeconds(.12f);
 		}
+		selectDiceNumAnimation = randomDice + 1;
 		StartCoroutine (PlayersNotInitialized ());
 	}
 
@@ -1225,8 +1165,6 @@ public class PlayerVSAIGameScript : MonoBehaviour
 		QualitySettings.vSyncCount = 1;
 		Application.targetFrameRate = 30;
 		randomNo = new System.Random ();
-
-		DisablingButtonAnimation ();
 
 		//Player initial positions...........
 		BluePlayers_Pos[0]=BluePlayerI.transform.position;
