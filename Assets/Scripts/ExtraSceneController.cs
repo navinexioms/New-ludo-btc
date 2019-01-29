@@ -2,9 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class ExtraSceneController : MonoBehaviour 
 {
 	public static int HowManyPlayers;
+	public Toggle TwoPlayerToggle, FourPlayerToggle;
+	public GameObject TwoPlayerGameObject, FourPlayerGameObject;
+	public void SelectTwoPlayerGamePlay()
+	{
+		TwoPlayerGameObject.SetActive (TwoPlayerToggle.isOn);
+		FourPlayerGameObject.SetActive (false);
+	}
+	public void SelectFourPlayerGamePlay()
+	{
+		TwoPlayerGameObject.SetActive (false);
+		FourPlayerGameObject.SetActive (FourPlayerToggle.isOn);
+	}
+
 	public void LoadExtraScene()
 	{
 		SceneManager.LoadScene ("ExtraScenes");
