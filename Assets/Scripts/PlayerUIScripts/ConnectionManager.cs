@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using 
-public class NewBehaviourScript : MonoBehaviour 
+
+public class ConnectionManager : MonoBehaviour 
 {
 
 	// Use this for initialization
