@@ -281,6 +281,7 @@ namespace Photon.Pun.UtilityScripts
 				DiceRollButton.GetComponent<Button> ().enabled = false;
 				selectDiceNumAnimation = Random.Range (0, 6);
 				selectDiceNumAnimation += 1;
+				print ("selectDiceNumAnimation:" + selectDiceNumAnimation);
 				rootNode.Add ("DiceNumber", selectDiceNumAnimation.ToString());
 				temp = rootNode.ToString ();
 				this.MakeTurn (temp);
@@ -296,12 +297,15 @@ namespace Photon.Pun.UtilityScripts
 				DiceRollButton.GetComponent<Image> ().sprite = DiceSprite [randomDice];
 				yield return new WaitForSeconds(.12f);
 			}
-			DiceRollButton.GetComponent<Image> ().sprite = DiceSprite [DiceNumber];
+			DiceRollButton.GetComponent<Image> ().sprite = DiceSprite [DiceNumber-1];
+			selectDiceNumAnimation = DiceNumber;
+			print ("selectDiceNumAnimation:" + selectDiceNumAnimation);
 			StartCoroutine (PlayersNotInitialized ());
 		}
 
 		IEnumerator PlayersNotInitialized()
 		{
+			print ("Executing PlayersNotInitialized()");
 			yield return new WaitForSeconds (.8f);
 			//game start initial position of each player(green and blue)
 			switch (playerTurn) 
@@ -343,6 +347,7 @@ namespace Photon.Pun.UtilityScripts
 				}
 				//===============Players border glow When Opening===============//
 				if ((selectDiceNumAnimation == 6 || selectDiceNumAnimation==1) && (BluePlayer_Steps [0] == 0 || BluePlayer_Steps [1] == 0 || BluePlayer_Steps [2] == 0 || BluePlayer_Steps [3] == 0)) {
+					print ("Players border glow When Opening");
 					if ((selectDiceNumAnimation == 6 || selectDiceNumAnimation==1) && BluePlayer_Steps [0] == 0) {
 						BluePlayerI_Border.SetActive (true);
 						BluePlayerI_Button.interactable = true;
@@ -370,12 +375,10 @@ namespace Photon.Pun.UtilityScripts
 					!BluePlayerIII_Border.activeInHierarchy && !BluePlayerIV_Border.activeInHierarchy)
 				{
 					DisablingButtonsOFBluePlayes ();
-					//				print ("PLAYERS DON'T HAVE OPTION TO MOVE , SWITCH TO NEXT PLAYER TURN");
+					print ("PLAYERS DON'T HAVE OPTION TO MOVE , SWITCH TO NEXT PLAYER TURN");
 
 					playerTurn = "GREEN";
 					InitializeDice ();
-					//AI passes his turn
-					//DiceRoll();
 				}
 				break;
 			case "GREEN":
@@ -1258,6 +1261,10 @@ namespace Photon.Pun.UtilityScripts
 			playerTurn = "BLUE";
 			BlueFrame.SetActive (false);
 			GreenFrame.SetActive (false);
+			if (PhotonNetwork.PlayerList.Length == 2) 
+			{
+				EnableFrameAndBorderForFirstTime ();
+			}
 		}
 
 
@@ -1303,7 +1310,7 @@ namespace Photon.Pun.UtilityScripts
 		/// <param name="move">Move Object data</param>
 		public void OnPlayerFinished(Player player, int turn, object move)
 		{
-			string temp = move as string;
+			temp = move as string;
 
 			if (temp.Contains ("DiceNumber")) 
 			{
@@ -1371,18 +1378,25 @@ namespace Photon.Pun.UtilityScripts
 				selectDiceNumAnimation = Place;
 				BluePlayerIV_UI ();
 			}
-			if (player.IsLocal) {
+			if (player.IsLocal) 
+			{
+				print ("(player.IsLocal) ");
 				isMyTurn = false;
-			} else {
+			}
+			else
+			{
 				StartCoroutine (WaitForSomeTime ());
+				print ("StartCoroutine (WaitForSomeTime ())");
 			}
 		}
 					
 		IEnumerator WaitForSomeTime()
 		{
-			yield return new WaitForSeconds (10);
+			yield return new WaitForSeconds (3);
 			isMyTurn = true;
-			if (PhotonNetwork.IsMasterClient) {
+
+			if (PhotonNetwork.IsMasterClient)
+			{
 				StartTurn ();
 			}
 		}
@@ -1396,26 +1410,36 @@ namespace Photon.Pun.UtilityScripts
 		/// <param name="turn">Turn index</param>
 		public void OnTurnTimeEnds(int turn)
 		{
-			
+			OnTurnCompleted (-1);
 		}
 		#endregion
 		public void StartTurn()
 		{
-			//		print ("StartTurn000");
+			print ("StartTurn000");
 
 			//		isMyTurn = true;
 
 			if (PhotonNetwork.IsMasterClient)
 			{
-							print ("StartTurn1111");
+				print ("StartTurn1111");
 
 				this.turnManager.BeginTurn();
-				if (PlayerCanPlayAgain == true) 
-				{
-					PlayerCanPlayAgain = false;
 
-				}
 			}
+		}
+		void EnableFrameAndBorderForFirstTime()
+		{
+			GreenPlayerI.SetActive (true);
+			GreenPlayerII.SetActive (true);
+			GreenPlayerIII.SetActive (true);
+			GreenPlayerIV.SetActive (true);
+
+			BlueFrame.SetActive (true);
+
+			BluePlayerI_Border.SetActive (true);
+			BluePlayerII_Border.SetActive (true);
+			BluePlayerIII_Border.SetActive (true);
+			BluePlayerIV_Border.SetActive (true);
 		}
 		public override void OnPlayerEnteredRoom(Player newPlayer)
 		{
@@ -1428,17 +1452,17 @@ namespace Photon.Pun.UtilityScripts
 				{
 					isMyTurn = true;
 				}
-				GreenPlayerI.SetActive (true);
-				GreenPlayerII.SetActive (true);
-				GreenPlayerIII.SetActive (true);
-				GreenPlayerIV.SetActive (true);
-
-				BlueFrame.SetActive (true);
-
-				BluePlayerI_Border.SetActive (true);
-				BluePlayerII_Border.SetActive (true);
-				BluePlayerIII_Border.SetActive (true);
-				BluePlayerIV_Border.SetActive (true);
+				EnableFrameAndBorderForFirstTime ();
+			}
+		}
+		void Update()
+		{
+			if (PlayerCanPlayAgain == true && isMyTurn==true) 
+			{
+				PlayerCanPlayAgain = false;
+				rootNode.Add ("None", ""+0);
+				temp = rootNode.ToString ();
+				this.MakeTurn (temp);
 			}
 		}
 	}
