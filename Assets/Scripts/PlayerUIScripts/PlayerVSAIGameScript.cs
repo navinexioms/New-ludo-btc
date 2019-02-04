@@ -362,14 +362,11 @@ public class PlayerVSAIGameScript : MonoBehaviour
 		case "BLUE":
 			//=============condition for border glow=============
 
-			if ((blueMovemenBlock.Count - BluePlayer_Steps [0]) >= selectDiceNumAnimation && BluePlayer_Steps [0] > 0 && (blueMovemenBlock.Count > BluePlayer_Steps [0])) 
-			{
+			if ((blueMovemenBlock.Count - BluePlayer_Steps [0]) >= selectDiceNumAnimation && BluePlayer_Steps [0] > 0 && (blueMovemenBlock.Count > BluePlayer_Steps [0])) {
 				BluePlayerI_Border.SetActive (true);
 				BluePlayerI_Button.interactable = true;
 
-			} 
-			else 
-			{
+			} else {
 				BluePlayerI_Border.SetActive (false);
 				BluePlayerI_Button.interactable = false;
 			}
@@ -377,9 +374,7 @@ public class PlayerVSAIGameScript : MonoBehaviour
 				BluePlayerII_Border.SetActive (true);
 				BluePlayerII_Button.interactable = true;
 
-			} 
-			else 
-			{
+			} else {
 				BluePlayerII_Border.SetActive (false);
 				BluePlayerII_Button.interactable = false;
 			}
@@ -387,9 +382,7 @@ public class PlayerVSAIGameScript : MonoBehaviour
 				BluePlayerIII_Border.SetActive (true);
 				BluePlayerIII_Button.interactable = true;
 
-			} 
-			else 
-			{
+			} else {
 				BluePlayerIII_Border.SetActive (false);
 				BluePlayerIII_Button.interactable = false;
 			}
@@ -397,30 +390,28 @@ public class PlayerVSAIGameScript : MonoBehaviour
 				BluePlayerIV_Border.SetActive (true);
 				BluePlayerIV_Button.interactable = true;
 
-			} 
-			else 
-			{
+			} else {
 				BluePlayerIV_Border.SetActive (false);
 				BluePlayerIV_Button.interactable = false;
 			}
 			//===============Players border glow When Opening===============//
 
-			if (selectDiceNumAnimation == 6 && BluePlayer_Steps [0] == 0) {
+			if ((selectDiceNumAnimation == 6 || selectDiceNumAnimation == 1) && BluePlayer_Steps [0] == 0) {
 				BluePlayerI_Border.SetActive (true);
 				BluePlayerI_Button.interactable = true;
 			}
 
-			if (selectDiceNumAnimation == 6 && BluePlayer_Steps [1] == 0) {
+			if ((selectDiceNumAnimation == 6 || selectDiceNumAnimation == 1) && BluePlayer_Steps [1] == 0) {
 				BluePlayerII_Border.SetActive (true);
 				BluePlayerII_Button.interactable = true;
 			}
 
-			if (selectDiceNumAnimation == 6 && BluePlayer_Steps [2] == 0) {
+			if ((selectDiceNumAnimation == 6 || selectDiceNumAnimation == 1) && BluePlayer_Steps [2] == 0) {
 				BluePlayerIII_Border.SetActive (true);
 				BluePlayerIII_Button.interactable = true;
 			}
 
-			if (selectDiceNumAnimation == 6 && BluePlayer_Steps [3] == 0) {
+			if ((selectDiceNumAnimation == 6 || selectDiceNumAnimation == 1) && BluePlayer_Steps [3] == 0) {
 				BluePlayerIV_Border.SetActive (true);
 				BluePlayerIV_Button.interactable = true;
 			}
@@ -477,22 +468,22 @@ public class PlayerVSAIGameScript : MonoBehaviour
 
 			//===============Players border glow When Opening===============//
 
-			if (selectDiceNumAnimation == 6 && GreenPlayer_Steps [0] == 0) {
+			if ((selectDiceNumAnimation == 6 || selectDiceNumAnimation == 1) && GreenPlayer_Steps [0] == 0) {
 				print ("Glowing 1st green Player");
 				GreenPlayerI_Border.SetActive (true);
 				GreenPlayerI_Button.interactable = true;
 			}
-			if (selectDiceNumAnimation == 6 && GreenPlayer_Steps [1] == 0) {
+			if ((selectDiceNumAnimation == 6 || selectDiceNumAnimation == 1) && GreenPlayer_Steps [1] == 0) {
 				print ("Glowing 2nd green Player");
 				GreenPlayerII_Border.SetActive (true);
 				GreenPlayerII_Button.interactable = true;
 			}
-			if (selectDiceNumAnimation == 6 && GreenPlayer_Steps [2] == 0) {
+			if ((selectDiceNumAnimation == 6 || selectDiceNumAnimation == 1) && GreenPlayer_Steps [2] == 0) {
 				print ("Glowing 3rd green Player");
 				GreenPlayerIII_Border.SetActive (true);
 				GreenPlayerIII_Button.interactable = true;
 			}
-			if (selectDiceNumAnimation == 6 && GreenPlayer_Steps [3] == 0) {
+			if ((selectDiceNumAnimation == 6 || selectDiceNumAnimation == 1) && GreenPlayer_Steps [3] == 0) {
 				print ("Glowing 4th green Player");
 				GreenPlayerIV_Border.SetActive (true);
 				GreenPlayerIV_Button.interactable = true;
@@ -563,8 +554,7 @@ public class PlayerVSAIGameScript : MonoBehaviour
 			} 
 			else 
 			{
-				if (selectDiceNumAnimation == 6 && BluePlayer_Steps [0] == 0)
-				{
+				if ((selectDiceNumAnimation == 6 || selectDiceNumAnimation == 1) && BluePlayer_Steps [0] == 0) {
 					print ("BluePlayerI Player moving its first move");
 					Vector3[] bluePlayer_Path = new Vector3[selectDiceNumAnimation];
 					bluePlayer_Path [0] = blueMovemenBlock [BluePlayer_Steps [0]].transform.position;
@@ -641,8 +631,7 @@ public class PlayerVSAIGameScript : MonoBehaviour
 			} 
 			else 
 			{
-				if (selectDiceNumAnimation == 6 && BluePlayer_Steps [1] == 0)
-				{
+				if ((selectDiceNumAnimation == 6 || selectDiceNumAnimation == 1) && BluePlayer_Steps [1] == 0) {
 					Vector3[] bluePlayer_Path = new Vector3[selectDiceNumAnimation];
 					bluePlayer_Path [0] = blueMovemenBlock [BluePlayer_Steps [1]].transform.position;
 					BluePlayer_Steps [1] += 1;
@@ -717,8 +706,7 @@ public class PlayerVSAIGameScript : MonoBehaviour
 			} 
 			else 
 			{
-				if (selectDiceNumAnimation == 6 && BluePlayer_Steps [2] == 0)
-				{
+				if ((selectDiceNumAnimation == 6 || selectDiceNumAnimation == 1) && BluePlayer_Steps [2] == 0) {
 					Vector3[] bluePlayer_Path = new Vector3[selectDiceNumAnimation];
 					bluePlayer_Path [0] = blueMovemenBlock [BluePlayer_Steps [2]].transform.position;
 					BluePlayer_Steps [2] += 1;
@@ -793,8 +781,7 @@ public class PlayerVSAIGameScript : MonoBehaviour
 			} 
 			else 
 			{
-				if (selectDiceNumAnimation == 6 && BluePlayer_Steps [3] == 0)
-				{
+				if ((selectDiceNumAnimation == 6 || selectDiceNumAnimation == 1) && BluePlayer_Steps [3] == 0) {
 					Vector3[] bluePlayer_Path = new Vector3[selectDiceNumAnimation];
 					bluePlayer_Path [0] = blueMovemenBlock [BluePlayer_Steps [3]].transform.position;
 					BluePlayer_Steps [3] += 1;
@@ -873,12 +860,11 @@ public class PlayerVSAIGameScript : MonoBehaviour
 			} 
 			else 
 			{
-				if (selectDiceNumAnimation == 6 && GreenPlayer_Steps[0] == 0) 
-				{
+				if ((selectDiceNumAnimation == 6 || selectDiceNumAnimation == 1) && GreenPlayer_Steps [0] == 0) {
 					print ("Activating 1st green player 1st time");
 					Vector3[] greenPlayer_Path = new Vector3[selectDiceNumAnimation];
-					greenPlayer_Path [0] = greenMovementBlock [GreenPlayer_Steps[0]].transform.position;
-					GreenPlayer_Steps[0] += 1;
+					greenPlayer_Path [0] = greenMovementBlock [GreenPlayer_Steps [0]].transform.position;
+					GreenPlayer_Steps [0] += 1;
 					playerTurn = "GREEN";
 					currentPlayerName = "GREEN PLAYER I";
 					iTween.MoveTo (GreenPlayerI, iTween.Hash ("position", greenPlayer_Path [0], "speed", 125, "time", 2.0f, "easetype", "elastic", "looptype", "none", "oncomplete", "InitializeDice", "oncompletetarget", this.gameObject));
@@ -952,12 +938,11 @@ public class PlayerVSAIGameScript : MonoBehaviour
 			} 
 			else 
 			{
-				if (selectDiceNumAnimation == 6 && GreenPlayer_Steps[1] == 0) 
-				{
+				if ((selectDiceNumAnimation == 6 || selectDiceNumAnimation == 1) && GreenPlayer_Steps [1] == 0) {
 					print ("Activating 1st green player 1st time");
 					Vector3[] greenPlayer_Path = new Vector3[selectDiceNumAnimation];
-					greenPlayer_Path [0] = greenMovementBlock [GreenPlayer_Steps[1]].transform.position;
-					GreenPlayer_Steps[1] += 1;
+					greenPlayer_Path [0] = greenMovementBlock [GreenPlayer_Steps [1]].transform.position;
+					GreenPlayer_Steps [1] += 1;
 					playerTurn = "GREEN";
 					currentPlayerName = "GREEN PLAYER II";
 					iTween.MoveTo (GreenPlayerII, iTween.Hash ("position", greenPlayer_Path [0], "speed", 125, "time", 2.0f, "easetype", "elastic", "looptype", "none", "oncomplete", "InitializeDice", "oncompletetarget", this.gameObject));
@@ -1032,12 +1017,11 @@ public class PlayerVSAIGameScript : MonoBehaviour
 			} 
 			else 
 			{
-				if (selectDiceNumAnimation == 6 && GreenPlayer_Steps[2] == 0) 
-				{
+				if ((selectDiceNumAnimation == 6 || selectDiceNumAnimation == 1) && GreenPlayer_Steps [2] == 0) {
 					print ("Activating 3rd green player 1st time");
 					Vector3[] greenPlayer_Path = new Vector3[selectDiceNumAnimation];
-					greenPlayer_Path [0] = greenMovementBlock [GreenPlayer_Steps[2]].transform.position;
-					GreenPlayer_Steps[2] += 1;
+					greenPlayer_Path [0] = greenMovementBlock [GreenPlayer_Steps [2]].transform.position;
+					GreenPlayer_Steps [2] += 1;
 					playerTurn = "GREEN";
 					currentPlayerName = "GREEN PLAYER III";
 					iTween.MoveTo (GreenPlayerIII, iTween.Hash ("position", greenPlayer_Path [0], "speed", 125, "time", 2.0f, "easetype", "elastic", "looptype", "none", "oncomplete", "InitializeDice", "oncompletetarget", this.gameObject));
@@ -1111,12 +1095,11 @@ public class PlayerVSAIGameScript : MonoBehaviour
 			} 
 			else 
 			{
-				if (selectDiceNumAnimation == 6 && GreenPlayer_Steps[3] == 0) 
-				{
+				if ((selectDiceNumAnimation == 6 || selectDiceNumAnimation == 1) && GreenPlayer_Steps [3] == 0) {
 					print ("Activating 1st green player 1st time");
 					Vector3[] greenPlayer_Path = new Vector3[selectDiceNumAnimation];
-					greenPlayer_Path [0] = greenMovementBlock [GreenPlayer_Steps[3]].transform.position;
-					GreenPlayer_Steps[3] += 1;
+					greenPlayer_Path [0] = greenMovementBlock [GreenPlayer_Steps [3]].transform.position;
+					GreenPlayer_Steps [3] += 1;
 					playerTurn = "GREEN";
 					currentPlayerName = "GREEN PLAYER IV";
 					iTween.MoveTo (GreenPlayerIV, iTween.Hash ("position", greenPlayer_Path [0], "speed", 125, "time", 2.0f, "easetype", "elastic", "looptype", "none", "oncomplete", "InitializeDice", "oncompletetarget", this.gameObject));

@@ -1466,6 +1466,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd2eb542213224847a19c5a5464c84ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TwoPlayerToggle: {fileID: 0}
+  FourPlayerToggle: {fileID: 0}
+  TwoPlayerGameObject: {fileID: 0}
+  FourPlayerGameObject: {fileID: 0}
 --- !u!4 &1541852125
 Transform:
   m_ObjectHideFlags: 0

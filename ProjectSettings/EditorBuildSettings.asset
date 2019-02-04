@@ -29,3 +29,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PlayerVSAI.unity
     guid: e16e532647ba6664e8b2c717a59ebcb9
+  - enabled: 1
+    path: Assets/Scenes/BettingAmountScene.unity
+    guid: 0669d53263a90854cbc53744e96bdf3e
+  - enabled: 1
+    path: Assets/Scenes/ColorPicking.unity
+    guid: 2d1ee19e451965243bcddc42f126e713
+  - enabled: 1
+    path: Assets/Scenes/SampleScene.unity
+    guid: afe47955b33271841b6c0c7cbc860003
+  - enabled: 1
+    path: Assets/Scenes/OneOnOneGameBoard.unity
+    guid: 7903b43dc55b31e4b87a7208219c0c49
+  - enabled: 1
+    path: Assets/Scenes/PlayWithFriend.unity
+    guid: 13580cf09bd69c64c942f7d4d3d0d2cd

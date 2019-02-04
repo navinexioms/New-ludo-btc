@@ -18,7 +18,14 @@ public class ExtraSceneController : MonoBehaviour
 		TwoPlayerGameObject.SetActive (false);
 		FourPlayerGameObject.SetActive (FourPlayerToggle.isOn);
 	}
-
+	public void LoadBettingAmountScene()
+	{
+		SceneManager.LoadScene ("BettingAmountScene");
+	}
+	public void LoadColorPickingScene()
+	{
+		SceneManager.LoadScene ("ColorPicking");
+	}
 	public void LoadExtraScene()
 	{
 		SceneManager.LoadScene ("ExtraScenes");
@@ -51,7 +58,7 @@ public class ExtraSceneController : MonoBehaviour
 	{
 		SceneManager.LoadScene ("ExtraScenes");
 	}
-	public void LoadExtraScenefromtransaction()
+	public void LoadExtraScenefromTransaction()
 	{
 		SceneManager.LoadScene ("ExtraScenes");
 	}
@@ -67,5 +74,13 @@ public class ExtraSceneController : MonoBehaviour
 	{
 		HowManyPlayers = 2;
 		SceneManager.LoadScene ("PlayerVSAI");
+	}
+	public void LoadTwoPlayWithFriend()
+	{
+		SceneManager.LoadScene ("PlayWithFriend");
+	}
+	public void LoadOneOnOneScene()
+	{
+		SceneManager.LoadScene ("OneOnOneGameBoard");
 	}
 }
